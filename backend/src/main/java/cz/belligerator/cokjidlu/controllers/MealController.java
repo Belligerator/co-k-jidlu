@@ -29,9 +29,9 @@ public class MealController {
     
     @PostMapping(path = "/add")
     public @ResponseBody
-    Iterable<Meal> addNewUser(@RequestBody Meal meal) {
+    Meal addNewUser(@RequestBody Meal meal) {
         meal.setId(list.get(list.size() - 1).getId() + 1);
         list.add(meal);
-        return list;
+        return meal;
     }
 }
