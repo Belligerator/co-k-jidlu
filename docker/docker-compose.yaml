@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  db:
+    image:  mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: BpVigCsGJc9JSGs
+      MYSQL_DATABASE: cokjidlu
+      MYSQL_USER: cokjidlu
+      MYSQL_PASSWORD: EJIBKxBPBnfFzue
+
+    volumes:
+      - db-data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ../backend
+    environment:
+      NODE_ENV: production
+      MYSQL_HOST: db
+      MYSQL_DATABASE: cokjidlu
+      MYSQL_USER: cokjidlu
+      MYSQL_PASSWORD: EJIBKxBPBnfFzue
+
+    depends_on:
+      - db
+    links:
+      - db
+
+  apache:
+    build:
+      context: ./apache
+    ports:
+      - 5016:80
+    depends_on:
+      - db
+    links:
+      - db
+
+
